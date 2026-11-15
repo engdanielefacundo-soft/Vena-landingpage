@@ -40,3 +40,61 @@
     </div>
   </header>
 
+  <main id="main-content" tabindex="-1">
+    <section id="hero" class="hero-section" aria-label="Apresentação do dispositivo Vena">
+      <video
+        class="hero-video-bg"
+        autoplay
+        loop
+        muted
+        playsinline
+        aria-hidden="true"
+        width="1920"
+        height="1080"
+      >
+        <source src="assets/video/hero-bg-video.mp4" type="video/mp4">
+      </video>
+
+      <div class="hero-video-overlay" aria-hidden="true"></div>
+
+      <div class="container hero-stage">
+        <div class="hero-copy reveal">
+          <h1 class="hero-title">
+            <span class="hero-title-brand">Vena.</span> Inteligência sob a superfície.
+          </h1>
+
+          <p class="hero-subtitle">
+            Sensores dentro do bueiro medem lixo e água em tempo real e cruzam os dados com a previsão de chuva, para a limpeza chegar antes da enchente.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#problema" class="btn btn-primary">
+              <span>Descubra o Vena</span>
+              <svg aria-hidden="true" class="icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#tecnologia" class="btn btn-secondary">Ver Arquitetura</a>
+          </div>
+        </div>
+
+        <div class="hero-showcase" aria-label="Visualização 3D do hardware Vena">
+          <div id="hero-device-scroll" class="hero-device-scroll">
+            <div class="hero-device-float">
+              <div class="hero-device-rig">
+                <img
+                  src="assets/img/vena-device.png"
+                  alt="Dispositivo IoT Vena flutuando em perspectiva isométrica: gabinete preto fosco IP67 com tampa superior transparente exibindo circuito ESP32 interno e dois sensores ultrassônicos metálicos inferiores"
+                  class="hero-device-img"
+                  width="1024"
+                  height="768"
+                  fetchpriority="high"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="device-floor-shadow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
