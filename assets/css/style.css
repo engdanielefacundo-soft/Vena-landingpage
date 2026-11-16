@@ -1046,3 +1046,230 @@ p {
 .slider-arrow:hover {
   background-color: var(--color-accent);
   border-color: var(--color-accent);
+  color: var(--color-bg-surface);
+  transform: translateY(-1px);
+}
+
+/* Section 03: Objectives Proportional Timeline */
+.objectives-list {
+  position: relative;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.objectives-list::before {
+  position: absolute;
+  z-index: 0;
+  top: 2.5rem;
+  bottom: 2.5rem;
+  left: calc(1.625rem - 1px);
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-accent-soft));
+  content: "";
+}
+
+.objective-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.objective-number {
+  position: relative;
+  z-index: 1;
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-bg-surface);
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.objective-card {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) 168px;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-8);
+  background-color: var(--color-bg-offwhite);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.objective-icon-box {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent-tint);
+  border: 1px solid var(--color-accent-border);
+  border-radius: 10px;
+  color: var(--color-accent);
+}
+
+.objective-body {
+  min-width: 0;
+}
+
+.objective-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.objective-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  max-width: 58ch;
+}
+
+.objective-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-accent-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+
+.objective-meta-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.objective-meta-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Section 04: Audience Cards */
+.audience-card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+}
+
+.audience-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.audience-header .icon-box {
+  margin-bottom: 0;
+}
+
+.audience-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-accent);
+  background-color: var(--color-accent-tint);
+  border: 1px solid var(--color-accent-border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+/* Section 05: Benefits Timeline */
+.benefits-timeline {
+  position: relative;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.benefits-timeline::before {
+  position: absolute;
+  z-index: 0;
+  top: 2.5rem;
+  bottom: 2.5rem;
+  left: calc(1.625rem - 1px);
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-accent-soft));
+  content: "";
+}
+
+.benefit-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.benefit-index {
+  position: relative;
+  z-index: 1;
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-bg-surface);
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.benefit-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-8);
+  background-color: var(--color-bg-offwhite);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.benefit-copy {
+  min-width: 0;
+}
+
+.benefit-title {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.benefit-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  max-width: 58ch;
+}
+
+.benefit-visual {
+  width: 180px;
+}
+
+.benefit-visual svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Section 06: Results Dashboard */
+.results-top-bar {
