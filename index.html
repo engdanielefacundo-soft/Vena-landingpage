@@ -136,3 +136,229 @@
       </div>
     </section>
 
+    <section id="tecnologia" class="section-block section-offwhite" aria-label="Tecnologia e Arquitetura Vena">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-kicker"><span class="kicker-num">02</span>Como funciona</span>
+          <h2 class="section-title">Do sensor ao despacho em três etapas.</h2>
+        </div>
+
+        <div
+          id="vena-slider"
+          class="slider-shell reveal"
+          tabindex="0"
+          role="region"
+          aria-roledescription="carrossel"
+          aria-label="Fases da arquitetura do sistema Vena"
+        >
+          <div class="slider-viewport">
+            <div id="slider-track" class="slider-track">
+
+              <article class="slider-slide is-selected" data-real-index="0" aria-label="1 de 3: Leitura Dupla na Galeria">
+                <div class="slide-split-card">
+                  <div class="slide-copy-col">
+                    <div class="slide-copy-body">
+                      <div class="slide-badge-row">
+                        <span class="slide-step-pill">Etapa 01</span>
+                        <span class="slide-tag">Sensoriamento no Bueiro</span>
+                      </div>
+
+                      <h3 class="slide-headline">Leitura Dupla na Galeria</h3>
+
+                      <p class="slide-description">
+                        Instalado dentro do bueiro em gabinete estanque, o módulo usa dois sensores ultrassônicos para medir ao mesmo tempo o lixo na grelha e a subida da água.
+                      </p>
+                    </div>
+
+                    <dl class="slide-specs-grid">
+                      <div class="spec-box">
+                        <dt>Controlador</dt>
+                        <dd>ESP32 com Wi-Fi</dd>
+                      </div>
+                      <div class="spec-box">
+                        <dt>Medição</dt>
+                        <dd>2 Sensores Ultrassônicos</dd>
+                      </div>
+                      <div class="spec-box">
+                        <dt>Alerta Local</dt>
+                        <dd>Sinalização em LED</dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div class="slide-visual-col">
+                    <figure
+                      class="technical-diagram-frame interactive-chart-shell"
+                      id="chart-shell-edge"
+                      data-chart-id="tech-edge"
+                      aria-label="Diagrama interativo de leitura dupla na galeria e faixas de alerta"
+                    >
+                      <div class="chart-svg-mount" id="chart-mount-edge"></div>
+                      <div class="chart-tooltip" id="tooltip-edge" role="status" aria-live="polite" hidden></div>
+                    </figure>
+                  </div>
+                </div>
+              </article>
+
+              <article class="slider-slide" data-real-index="1" aria-label="2 de 3: Monitoramento e Previsão de Chuva">
+                <div class="slide-split-card">
+                  <div class="slide-copy-col">
+                    <div class="slide-copy-body">
+                      <div class="slide-badge-row">
+                        <span class="slide-step-pill">Etapa 02</span>
+                        <span class="slide-tag">Nuvem e Meteorologia</span>
+                      </div>
+
+                      <h3 class="slide-headline">Monitoramento e Previsão de Chuva</h3>
+
+                      <p class="slide-description">
+                        Os dados de cada bueiro seguem em tempo real para a central, que consulta a previsão meteorológica das próximas 48 horas para antecipar temporais.
+                      </p>
+                    </div>
+
+                    <dl class="slide-specs-grid">
+                      <div class="spec-box">
+                        <dt>Transmissão</dt>
+                        <dd>Tempo Real via Nuvem</dd>
+                      </div>
+                      <div class="spec-box">
+                        <dt>Previsão</dt>
+                        <dd>Janela de 48 Horas</dd>
+                      </div>
+                      <div class="spec-box">
+                        <dt>Escala</dt>
+                        <dd>Expansão por Bairro</dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div class="slide-visual-col">
+                    <figure
+                      class="technical-diagram-frame interactive-chart-shell"
+                      id="chart-shell-forecast"
+                      data-chart-id="tech-forecast"
+                      aria-label="Gráfico interativo de telemetria e previsão de chuva para 48 horas"
+                    >
+                      <div class="chart-svg-mount" id="chart-mount-forecast"></div>
+                      <div class="chart-tooltip" id="tooltip-forecast" role="status" aria-live="polite" hidden></div>
+                    </figure>
+                  </div>
+                </div>
+              </article>
+
+              <article class="slider-slide" data-real-index="2" aria-label="3 de 3: Priorização Inteligente da Limpeza">
+                <div class="slide-split-card">
+                  <div class="slide-copy-col">
+                    <div class="slide-copy-body">
+                      <div class="slide-badge-row">
+                        <span class="slide-step-pill">Etapa 03</span>
+                        <span class="slide-tag">Decisão e Despacho</span>
+                      </div>
+
+                      <h3 class="slide-headline">Priorização Inteligente da Limpeza</h3>
+
+                      <p class="slide-description">
+                        O sistema cruza o nível de obstrução com a aproximação da chuva para ordenar a fila de limpeza e acionar o alerta de via interditada.
+                      </p>
+                    </div>
+
+                    <dl class="slide-specs-grid">
+                      <div class="spec-box">
+                        <dt>Classificação</dt>
+                        <dd>Livre, Atenção e Crítico</dd>
+                      </div>
+                      <div class="spec-box">
+                        <dt>Prevenção</dt>
+                        <dd>Elevação com Chuva</dd>
+                      </div>
+                      <div class="spec-box">
+                        <dt>Resposta</dt>
+                        <dd>Limpeza e Interdição</dd>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <div class="slide-visual-col">
+                    <figure
+                      class="technical-diagram-frame interactive-chart-shell"
+                      id="chart-shell-priority"
+                      data-chart-id="tech-priority"
+                      aria-label="Gráfico interativo de elevação preventiva de prioridade antes do temporal"
+                    >
+                      <div class="chart-svg-mount" id="chart-mount-priority"></div>
+                      <div class="chart-tooltip" id="tooltip-priority" role="status" aria-live="polite" hidden></div>
+                    </figure>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <div class="slider-control-bar">
+            <div class="slider-pagination-group">
+              <div class="slider-dots" role="tablist" aria-label="Selecionar fase da arquitetura">
+                <button
+                  type="button"
+                  role="tab"
+                  class="slider-dot is-active"
+                  aria-selected="true"
+                  aria-label="Slide 1: Leitura Dupla na Galeria"
+                  data-slide-to="0"
+                  data-cursor="slider-nav"
+                ></button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="slider-dot"
+                  aria-selected="false"
+                  aria-label="Slide 2: Monitoramento e Previsão de Chuva"
+                  data-slide-to="1"
+                  data-cursor="slider-nav"
+                ></button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="slider-dot"
+                  aria-selected="false"
+                  aria-label="Slide 3: Priorização Inteligente da Limpeza"
+                  data-slide-to="2"
+                  data-cursor="slider-nav"
+                ></button>
+              </div>
+
+              <p id="slider-status" class="slider-status" aria-live="polite">
+                Etapa 01 de 03 · Leitura Dupla na Galeria
+              </p>
+            </div>
+
+            <div class="slider-nav-group">
+              <div class="slider-arrows" aria-label="Controles do carrossel">
+                <button
+                  type="button"
+                  id="slider-prev"
+                  class="slider-arrow"
+                  data-cursor="slider-nav"
+                  aria-label="Slide anterior"
+                >
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path d="M19 12H5M5 12L11 18M5 12L11 6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  id="slider-next"
+                  class="slider-arrow"
+                  data-cursor="slider-nav"
+                  aria-label="Próximo slide"
+                >
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
