@@ -563,3 +563,486 @@ p {
   font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--color-text-dark);
+  margin-bottom: var(--space-4);
+}
+
+.section-offwhite .section-kicker {
+  background-color: var(--color-bg-surface);
+}
+
+.kicker-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.625rem;
+  height: 1.375rem;
+  padding-inline: 0.4rem;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  color: var(--color-bg-surface);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+.section-title {
+  font-size: clamp(1.85rem, 1.35rem + 2vw, 2.75rem);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.section-description {
+  font-size: 1.0625rem;
+}
+
+/* Grids & Cards */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.clean-card {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg-offwhite);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+}
+
+.problem-symbol {
+  position: absolute;
+  top: 0.75rem;
+  right: 1.25rem;
+  color: rgba(0, 89, 188, 0.09);
+  font-size: clamp(2.75rem, 2rem + 1.2vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.clean-card .card-title {
+  max-width: 80%;
+}
+
+.clean-card .card-text {
+  position: relative;
+  z-index: 1;
+}
+
+.icon-box {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent-tint);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent);
+  margin-bottom: var(--space-5);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.card-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* Technology Carousel */
+.slider-shell {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.slider-viewport {
+  overflow: hidden;
+  width: 100%;
+  touch-action: pan-y;
+}
+
+.slider-track {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+}
+
+.slider-track.is-animating {
+  transition: transform var(--transition-slider);
+}
+
+.slider-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  opacity: 0.45;
+  transition: opacity var(--transition-slider);
+}
+
+.slider-slide.is-selected {
+  opacity: 1;
+}
+
+.slide-split-card {
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  min-height: 470px;
+}
+
+.slide-copy-col {
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+.slide-copy-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.slide-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: var(--space-5);
+}
+
+.slide-step-pill {
+  padding: 0.25rem 0.6875rem;
+  background-color: var(--color-accent);
+  color: var(--color-bg-surface);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.slide-tag {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+}
+
+.slide-headline {
+  font-size: clamp(1.55rem, 1.25rem + 1.1vw, 2.05rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--space-4);
+  text-wrap: balance;
+}
+
+.slide-description {
+  font-size: 1.025rem;
+  line-height: 1.7;
+  max-width: 48ch;
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
+
+.slide-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.spec-box {
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--color-border-subtle);
+}
+
+.spec-box:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.spec-box dt {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.spec-box dd {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.slide-visual-col {
+  padding: var(--space-5);
+  background-color: var(--color-bg-offwhite);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.technical-diagram-frame {
+  position: relative;
+  width: 100%;
+  background-color: var(--chart-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.technical-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Interactive SVG Chart Component System */
+.interactive-chart-shell {
+  position: relative;
+  user-select: none;
+}
+
+.chart-svg-mount {
+  width: 100%;
+}
+
+.chart-data-item {
+  cursor: pointer;
+  outline: none;
+  transition:
+    opacity 260ms var(--ease-out-expo),
+    filter 260ms var(--ease-out-expo),
+    transform 320ms var(--ease-out-expo);
+}
+
+.interactive-chart-shell.is-hovering-item .chart-data-item:not(.is-hovered) {
+  opacity: 0.26 !important;
+}
+
+.interactive-chart-shell.is-hovering-item .chart-data-item.is-hovered {
+  opacity: 1 !important;
+  filter: drop-shadow(0 8px 16px rgba(15, 23, 42, 0.16));
+}
+
+.chart-bar-grow-y {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transform: scaleY(0);
+  transition:
+    transform 920ms var(--ease-out-expo),
+    opacity 260ms var(--ease-out-expo),
+    filter 260ms var(--ease-out-expo);
+  transition-delay: var(--anim-delay, 0ms);
+}
+
+.chart-bar-grow-x {
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition:
+    transform 920ms var(--ease-out-expo),
+    opacity 260ms var(--ease-out-expo),
+    filter 260ms var(--ease-out-expo);
+  transition-delay: var(--anim-delay, 0ms);
+}
+
+.chart-node-pop {
+  transform-box: fill-box;
+  transform-origin: center center;
+  transform: scale(0.92);
+  opacity: 0;
+  transition:
+    transform 760ms var(--ease-out-expo),
+    opacity 540ms var(--ease-out-expo),
+    filter 260ms var(--ease-out-expo);
+  transition-delay: var(--anim-delay, 0ms);
+}
+
+.chart-line-draw {
+  stroke-dasharray: 820;
+  stroke-dashoffset: 820;
+  transition:
+    stroke-dashoffset 1200ms var(--ease-out-expo),
+    opacity 260ms var(--ease-out-expo);
+  transition-delay: var(--anim-delay, 120ms);
+}
+
+.interactive-chart-shell.is-in-view .chart-bar-grow-y {
+  transform: scaleY(1);
+}
+
+.interactive-chart-shell.is-in-view .chart-bar-grow-x {
+  transform: scaleX(1);
+}
+
+.interactive-chart-shell.is-in-view .chart-node-pop {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.interactive-chart-shell.is-in-view .chart-line-draw {
+  stroke-dashoffset: 0;
+}
+
+/* Floating Chart Tooltip */
+.chart-tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  min-width: 190px;
+  max-width: 250px;
+  padding: 0.65rem 0.85rem;
+  background-color: rgba(15, 23, 42, 0.96);
+  color: #F8FAFC;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.24);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 6px, 0) scale(0.96);
+  transition:
+    opacity 180ms var(--ease-out-expo),
+    transform 180ms var(--ease-out-expo);
+}
+
+.chart-tooltip.is-visible {
+  opacity: 1;
+}
+
+.chart-tooltip-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #CBD5E1;
+  margin-bottom: 0.2rem;
+}
+
+.chart-tooltip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.chart-tooltip-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin-bottom: 0.2rem;
+}
+
+.chart-tooltip-metric {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.15rem;
+}
+
+.chart-tooltip-desc {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #94A3B8;
+}
+
+.slider-control-bar {
+  padding: var(--space-4) var(--space-8);
+  background-color: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.slider-pagination-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.slider-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.slider-dot {
+  width: 28px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: var(--color-border-strong);
+  transition:
+    width var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.slider-dot:hover {
+  background-color: var(--color-accent-subtle);
+}
+
+.slider-dot.is-active {
+  width: 44px;
+  background-color: var(--color-accent);
+}
+
+.slider-status {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+
+.slider-nav-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.slider-arrows {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.slider-arrow {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-offwhite);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-dark);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.slider-arrow:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
