@@ -943,3 +943,933 @@
           height: 7,
           rx: 3.5,
           fill: isCritical ? 'rgba(255,255,255,0.2)' : '#DBEAFE',
+        })
+      );
+      rowGroup.appendChild(
+        createSvgEl('rect', {
+          x: trackX,
+          y: trackY,
+          width: Math.round((scen.finalScore / 100) * maxBarWidth),
+          height: 7,
+          rx: 3.5,
+          fill: isCritical ? '#FFFFFF' : scen.barColor,
+          class: 'chart-bar-grow-x',
+          style: `--anim-delay: ${220 + idx * 120}ms`,
+        })
+      );
+
+      rowGroup.appendChild(
+        createSvgEl('rect', {
+          x: 472,
+          y: y + 18,
+          width: 160,
+          height: 34,
+          rx: 6,
+          fill: isCritical ? 'rgba(255,255,255,0.14)' : '#FFFFFF',
+          stroke: isCritical ? '#93C5FD' : '#BFDBFE',
+        })
+      );
+      rowGroup.appendChild(
+        createSvgEl('circle', {
+          cx: 490,
+          cy: y + 35,
+          r: 5,
+          fill: scen.dotColor,
+        })
+      );
+      rowGroup.appendChild(
+        createSvgEl(
+          'text',
+          {
+            x: 504,
+            y: y + 39,
+            fill: isCritical ? '#FFFFFF' : '#0059BC',
+            'font-family': 'Inter, sans-serif',
+            'font-size': 11.5,
+            'font-weight': 700,
+          },
+          scen.statusLabel
+        )
+      );
+
+      svg.appendChild(rowGroup);
+    });
+
+    // Bottom Operational Summary Bar
+    svg.appendChild(createSvgEl('rect', { x: 28, y: 326, width: 624, height: 68, rx: 8, fill: '#EFF6FF', stroke: '#BFDBFE' }));
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 52, y: 352, fill: '#0059BC', 'font-family': 'Inter, sans-serif', 'font-size': 11, 'font-weight': 700 },
+        'RESULTADO OPERACIONAL'
+      )
+    );
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 52, y: 374, fill: '#0F172A', 'font-family': 'Inter, sans-serif', 'font-size': 12.5, 'font-weight': 600 },
+        'A limpeza chega antes da chuva cair e a Defesa Civil interdita preventivamente vias críticas.'
+      )
+    );
+
+    return svg;
+  }
+
+  function buildResultsComparisonChart() {
+    const data = CHART_DATASETS.resultsComparison;
+    const svg = createSvgEl('svg', {
+      role: 'img',
+      'aria-label':
+        'Gráfico comparativo das duas fases climáticas na Bela Vista mostrando Rua Treze de Maio livre nas duas fases e Av. 9 de Julho subindo de Atenção sem chuva para Crítico com chuva',
+      class: 'results-svg',
+      viewBox: '0 0 680 400',
+      fill: 'none',
+    });
+
+    svg.appendChild(createSvgEl('rect', { width: 680, height: 400, rx: 10, fill: '#FFFFFF' }));
+
+    // Top Header / Legend Row
+    svg.appendChild(createSvgEl('circle', { cx: 36, cy: 30, r: 5, fill: '#3B82F6' }));
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 48, y: 34, fill: '#475569', 'font-family': 'Inter, sans-serif', 'font-size': 11.5, 'font-weight': 600 },
+        'Fase 1 · Sem Chuva'
+      )
+    );
+    svg.appendChild(createSvgEl('circle', { cx: 188, cy: 30, r: 5, fill: '#0059BC' }));
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 200, y: 34, fill: '#0059BC', 'font-family': 'Inter, sans-serif', 'font-size': 11.5, 'font-weight': 700 },
+        'Fase 2 · Com Chuva'
+      )
+    );
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        {
+          x: 652,
+          y: 34,
+          'text-anchor': 'end',
+          fill: '#0059BC',
+          'font-family': 'Inter, sans-serif',
+          'font-size': 11,
+          'font-weight': 600,
+          id: 'svg-phase-summary',
+        },
+        'Sem chuva: limpeza programada'
+      )
+    );
+    svg.appendChild(createSvgEl('line', { x1: 28, y1: 52, x2: 652, y2: 52, stroke: '#E2E8F0' }));
+
+    // 3 Horizontal Operational Zones
+    svg.appendChild(
+      createSvgEl('rect', { x: 28, y: 68, width: 624, height: 86, rx: 6, fill: '#0059BC', 'fill-opacity': 0.06 })
+    );
+    svg.appendChild(
+      createSvgEl('line', {
+        x1: 28,
+        y1: 154,
+        x2: 652,
+        y2: 154,
+        stroke: '#0059BC',
+        'stroke-width': 1.25,
+        'stroke-dasharray': '5 4',
+      })
+    );
+
+    svg.appendChild(createSvgEl('rect', { x: 28, y: 154, width: 624, height: 86, fill: '#EFF6FF', 'fill-opacity': 0.6 }));
+    svg.appendChild(
+      createSvgEl('line', {
+        x1: 28,
+        y1: 240,
+        x2: 652,
+        y2: 240,
+        stroke: '#3B82F6',
+        'stroke-width': 1.2,
+        'stroke-dasharray': '4 4',
+      })
+    );
+
+    svg.appendChild(createSvgEl('rect', { x: 28, y: 240, width: 624, height: 86, fill: '#F8FAFC' }));
+    svg.appendChild(createSvgEl('line', { x1: 28, y1: 326, x2: 652, y2: 326, stroke: '#CBD5E1', 'stroke-width': 1.5 }));
+
+    // Dedicated Left Y-Axis Zone Labels Column (x=28..224)
+    svg.appendChild(createSvgEl('line', { x1: 224, y1: 68, x2: 224, y2: 326, stroke: '#E2E8F0', 'stroke-width': 1.5 }));
+
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 42, y: 104, fill: '#0059BC', 'font-family': 'Inter, sans-serif', 'font-size': 12, 'font-weight': 700 },
+        'CRÍTICO'
+      )
+    );
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 42, y: 124, fill: '#475569', 'font-family': 'Inter, sans-serif', 'font-size': 10.5, 'font-weight': 600 },
+        'LED Vermelho · Via Interditada'
+      )
+    );
+
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 42, y: 190, fill: '#0059BC', 'font-family': 'Inter, sans-serif', 'font-size': 12, 'font-weight': 700 },
+        'ATENÇÃO'
+      )
+    );
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 42, y: 210, fill: '#475569', 'font-family': 'Inter, sans-serif', 'font-size': 10.5, 'font-weight': 600 },
+        'LED Amarelo · Limpeza na Rotina'
+      )
+    );
+
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 42, y: 276, fill: '#10B981', 'font-family': 'Inter, sans-serif', 'font-size': 12, 'font-weight': 700 },
+        'LIVRE'
+      )
+    );
+    svg.appendChild(
+      createSvgEl(
+        'text',
+        { x: 42, y: 296, fill: '#475569', 'font-family': 'Inter, sans-serif', 'font-size': 10.5, 'font-weight': 600 },
+        'LED Verde · Fluxo Normal'
+      )
+    );
+
+    // Render Each Unit's Dual-Phase Bars
+    data.units.forEach((unit, unitIdx) => {
+      const unitContainer = createSvgEl('g', { id: `svg-group-${unit.id}` });
+
+      unit.phases.forEach((phase, phaseIdx) => {
+        const isDry = phase.key === 'dry';
+        const phaseGroup = createSvgEl('g', {
+          id: phase.groupId,
+          opacity: isDry ? '1' : '0.42',
+        });
+
+        attachTooltipMetadata(phaseGroup, {
+          tag: phase.tooltipTag,
+          color: phase.dotColor,
+          title: phase.tooltipTitle,
+          metric: phase.tooltipMetric,
+          desc: phase.tooltipDesc,
+          phaseKey: phase.key,
+        });
+
+        phaseGroup.appendChild(
+          createSvgEl('rect', {
+            x: phase.x - 6,
+            y: 72,
+            width: phase.width + 12,
+            height: 282,
+            fill: 'transparent',
+          })
+        );
+
+        const barAttrs = {
+          id: phase.barId,
+          x: phase.x,
+          y: phase.y,
+          width: phase.width,
+          height: phase.height,
+          rx: 6,
+          fill: phase.fill,
+          class: 'chart-bar-grow-y',
+          style: `--anim-delay: ${120 + (unitIdx * 2 + phaseIdx) * 110}ms`,
+        };
+        if (phase.barId === 'svg-9j-dry-bar') {
+          barAttrs.stroke = '#0059BC';
+          barAttrs['stroke-width'] = 2;
+        }
+        phaseGroup.appendChild(createSvgEl('rect', barAttrs));
+
+        const centerX = phase.x + phase.width / 2;
+        phaseGroup.appendChild(
+          createSvgEl(
+            'text',
+            {
+              x: centerX,
+              y: phase.y - 12,
+              'text-anchor': 'middle',
+              fill: phase.textColor,
+              'font-family': 'Inter, sans-serif',
+              'font-size': 11,
+              'font-weight': 700,
+              class: 'chart-node-pop',
+              style: `--anim-delay: ${280 + (unitIdx * 2 + phaseIdx) * 110}ms`,
+            },
+            phase.statusLabel
+          )
+        );
+
+        phaseGroup.appendChild(
+          createSvgEl(
+            'text',
+            {
+              x: centerX,
+              y: 346,
+              'text-anchor': 'middle',
+              fill: isDry && unit.id === 'nove-julho' ? '#0059BC' : '#475569',
+              'font-family': 'Inter, sans-serif',
+              'font-size': 10.5,
+              'font-weight': isDry && unit.id === 'nove-julho' ? 700 : 600,
+            },
+            phase.phaseLabel
+          )
+        );
+
+        unitContainer.appendChild(phaseGroup);
+      });
+
+      if (unit.id === 'nove-julho') {
+        unitContainer.appendChild(
+          createSvgEl('path', {
+            id: 'svg-escalation-connector',
+            d: 'M518 164 Q540 124 560 112',
+            stroke: '#0059BC',
+            'stroke-width': 2,
+            'stroke-dasharray': '4 3',
+            fill: 'none',
+            opacity: 0.55,
+          })
+        );
+      }
+
+      unitContainer.appendChild(
+        createSvgEl(
+          'text',
+          {
+            x: unit.centerX,
+            y: 376,
+            'text-anchor': 'middle',
+            fill: '#0F172A',
+            'font-family': 'Inter, sans-serif',
+            'font-size': 12.5,
+            'font-weight': 700,
+          },
+          unit.name
+        )
+      );
+
+      svg.appendChild(unitContainer);
+    });
+
+    return svg;
+  }
+
+  function mountAllSvgCharts() {
+    const edgeMount = document.getElementById('chart-mount-edge');
+    const forecastMount = document.getElementById('chart-mount-forecast');
+    const priorityMount = document.getElementById('chart-mount-priority');
+    const resultsMount = document.getElementById('chart-mount-results');
+
+    if (edgeMount) {
+      edgeMount.replaceChildren(buildTechEdgeChart());
+    }
+    if (forecastMount) {
+      forecastMount.replaceChildren(buildTechForecastChart());
+    }
+    if (priorityMount) {
+      priorityMount.replaceChildren(buildTechPriorityChart());
+    }
+    if (resultsMount) {
+      resultsMount.replaceChildren(buildResultsComparisonChart());
+    }
+  }
+
+  /* ==========================================================================
+     4. INTERACTIVE CHART MOTION, HOVER & FLOATING TOOLTIP ENGINE
+     ========================================================================== */
+  function initInteractiveCharts(onPhaseBarSelect) {
+    const chartShells = Array.from(document.querySelectorAll('.interactive-chart-shell'));
+    if (!chartShells.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      chartShells.forEach((shell) => shell.classList.add('is-in-view'));
+    } else {
+      const entryObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              requestAnimationFrame(() => {
+                entry.target.classList.add('is-in-view');
+              });
+            }
+          });
+        },
+        { root: null, threshold: 0.15 }
+      );
+      chartShells.forEach((shell) => entryObserver.observe(shell));
+    }
+
+    chartShells.forEach((shell) => {
+      const tooltip = shell.querySelector('.chart-tooltip');
+      if (!tooltip) return;
+
+      let activeItem = null;
+
+      function populateTooltip(item) {
+        const tag = item.dataset.tooltipTag || '';
+        const color = item.dataset.tooltipColor || '#0059BC';
+        const title = item.dataset.tooltipTitle || '';
+        const metric = item.dataset.tooltipMetric || '';
+        const desc = item.dataset.tooltipDesc || '';
+
+        tooltip.innerHTML = `
+          <div class="chart-tooltip-tag">
+            <span class="chart-tooltip-dot" style="background-color: ${color}"></span>
+            <span>${tag}</span>
+          </div>
+          <div class="chart-tooltip-title">${title}</div>
+          <div class="chart-tooltip-metric">${metric}</div>
+          <div class="chart-tooltip-desc">${desc}</div>
+        `;
+      }
+
+      function positionTooltip(clientX, clientY, targetEl) {
+        const shellRect = shell.getBoundingClientRect();
+        const tooltipWidth = tooltip.offsetWidth || 220;
+        const tooltipHeight = tooltip.offsetHeight || 105;
+        const pad = 12;
+
+        let x;
+        let y;
+
+        if (typeof clientX === 'number' && typeof clientY === 'number') {
+          x = clientX - shellRect.left - tooltipWidth / 2;
+          y = clientY - shellRect.top - tooltipHeight - 16;
+        } else if (targetEl) {
+          const itemRect = targetEl.getBoundingClientRect();
+          x = itemRect.left - shellRect.left + itemRect.width / 2 - tooltipWidth / 2;
+          y = itemRect.top - shellRect.top - tooltipHeight - 12;
+        } else {
+          return;
+        }
+
+        if (y < pad) {
+          y =
+            typeof clientY === 'number'
+              ? clientY - shellRect.top + 20
+              : targetEl.getBoundingClientRect().bottom - shellRect.top + 10;
+        }
+
+        x = Math.max(pad, Math.min(shellRect.width - tooltipWidth - pad, x));
+        y = Math.max(pad, Math.min(shellRect.height - tooltipHeight - pad, y));
+
+        tooltip.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(1)`;
+      }
+
+      function activateItem(item, clientX, clientY) {
+        if (activeItem !== item) {
+          if (activeItem) {
+            activeItem.classList.remove('is-hovered');
+          }
+          activeItem = item;
+          activeItem.classList.add('is-hovered');
+          shell.classList.add('is-hovering-item');
+          populateTooltip(item);
+          tooltip.hidden = false;
+          tooltip.classList.add('is-visible');
+        }
+        positionTooltip(clientX, clientY, item);
+      }
+
+      function deactivateAll() {
+        if (activeItem) {
+          activeItem.classList.remove('is-hovered');
+          activeItem = null;
+        }
+        shell.classList.remove('is-hovering-item');
+        tooltip.classList.remove('is-visible');
+      }
+
+      shell.addEventListener(
+        'pointermove',
+        (event) => {
+          const item = event.target.closest('.chart-data-item');
+          if (item && shell.contains(item)) {
+            activateItem(item, event.clientX, event.clientY);
+          } else if (activeItem) {
+            deactivateAll();
+          }
+        },
+        { passive: true }
+      );
+
+      shell.addEventListener('pointerleave', () => {
+        deactivateAll();
+      });
+
+      shell.addEventListener('focusin', (event) => {
+        const item = event.target.closest('.chart-data-item');
+        if (item && shell.contains(item)) {
+          activateItem(item, null, null);
+        }
+      });
+
+      shell.addEventListener('focusout', (event) => {
+        if (!shell.contains(event.relatedTarget)) {
+          deactivateAll();
+        }
+      });
+
+      shell.addEventListener('click', (event) => {
+        const item = event.target.closest('.chart-data-item[data-phase-key]');
+        if (item && typeof onPhaseBarSelect === 'function') {
+          onPhaseBarSelect(item.dataset.phaseKey);
+        }
+      });
+    });
+  }
+
+  /* ==========================================================================
+     5. CUSTOM CURSOR, HERO 3D FLOAT, CAROUSEL & SCENARIO SWITCHER
+     ========================================================================== */
+  function initCustomCursor() {
+    const cursor = document.getElementById('custom-cursor');
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+    if (!cursor || !hasFinePointer || prefersReducedMotion) {
+      return;
+    }
+
+    let mouseX = -100;
+    let mouseY = -100;
+    let currentX = -100;
+    let currentY = -100;
+    let cursorMode = 'default';
+    let isVisible = false;
+    const lerpFactor = 0.24;
+
+    window.addEventListener(
+      'mousemove',
+      (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        if (!isVisible) {
+          currentX = mouseX;
+          currentY = mouseY;
+          isVisible = true;
+          cursor.classList.add('is-visible');
+        }
+      },
+      { passive: true }
+    );
+
+    document.addEventListener('mouseleave', () => {
+      isVisible = false;
+      cursor.classList.remove('is-visible');
+    });
+
+    document.addEventListener('mouseover', (event) => {
+      const sliderControl = event.target.closest('[data-cursor="slider-nav"]');
+      if (sliderControl) {
+        cursorMode = 'slider-nav';
+        cursor.classList.add('is-slider-nav');
+        cursor.classList.remove('is-hovering');
+        return;
+      }
+
+      const interactive = event.target.closest('a, button, .chart-data-item');
+      if (interactive) {
+        cursorMode = 'interactive';
+        cursor.classList.add('is-hovering');
+        cursor.classList.remove('is-slider-nav');
+        return;
+      }
+
+      cursorMode = 'default';
+      cursor.classList.remove('is-hovering', 'is-slider-nav');
+    });
+
+    function renderCursor() {
+      currentX += (mouseX - currentX) * lerpFactor;
+      currentY += (mouseY - currentY) * lerpFactor;
+
+      let radiusOffset = 4;
+      if (cursorMode === 'slider-nav') {
+        radiusOffset = 17;
+      } else if (cursorMode === 'interactive') {
+        radiusOffset = 11;
+      }
+
+      const x = (currentX - radiusOffset).toFixed(2);
+      const y = (currentY - radiusOffset).toFixed(2);
+
+      cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      window.requestAnimationFrame(renderCursor);
+    }
+
+    window.requestAnimationFrame(renderCursor);
+  }
+
+  function initVenaSlider() {
+    const sliderShell = document.getElementById('vena-slider');
+    const track = document.getElementById('slider-track');
+    const prevBtn = document.getElementById('slider-prev');
+    const nextBtn = document.getElementById('slider-next');
+    const dots = Array.from(document.querySelectorAll('.slider-dot'));
+    const statusEl = document.getElementById('slider-status');
+
+    if (!sliderShell || !track) {
+      return;
+    }
+
+    const originalSlides = Array.from(track.querySelectorAll('.slider-slide'));
+    const totalRealSlides = originalSlides.length;
+    if (totalRealSlides < 2) {
+      return;
+    }
+
+    const slideTitles = [
+      'Etapa 01 de 03 · Leitura Dupla na Galeria',
+      'Etapa 02 de 03 · Monitoramento e Previsão de Chuva',
+      'Etapa 03 de 03 · Priorização Inteligente da Limpeza',
+    ];
+
+    const firstClone = originalSlides[0].cloneNode(true);
+    const lastClone = originalSlides[totalRealSlides - 1].cloneNode(true);
+    firstClone.setAttribute('aria-hidden', 'true');
+    lastClone.setAttribute('aria-hidden', 'true');
+    firstClone.dataset.clone = 'first';
+    lastClone.dataset.clone = 'last';
+
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, originalSlides[0]);
+
+    const allTrackSlides = Array.from(track.querySelectorAll('.slider-slide'));
+
+    let trackIndex = 1;
+    let isTransitioning = false;
+    let autoplayTimer = null;
+    const AUTOPLAY_INTERVAL = 5500;
+    let isHoveredOrFocused = false;
+
+    function getRealIndex(currentTrackIndex) {
+      if (currentTrackIndex === 0) return totalRealSlides - 1;
+      if (currentTrackIndex === totalRealSlides + 1) return 0;
+      return currentTrackIndex - 1;
+    }
+
+    function replayChartAnimationInSlide(slideEl) {
+      if (!slideEl) return;
+      const chartShell = slideEl.querySelector('.interactive-chart-shell');
+      if (!chartShell) return;
+      chartShell.classList.remove('is-in-view');
+      void chartShell.offsetWidth;
+      requestAnimationFrame(() => {
+        chartShell.classList.add('is-in-view');
+      });
+    }
+
+    function updateIndicators(realIndex) {
+      allTrackSlides.forEach((slide, idx) => {
+        const isCurrent = idx === trackIndex;
+        slide.classList.toggle('is-selected', isCurrent);
+        if (!slide.dataset.clone) {
+          slide.setAttribute('aria-hidden', String(!isCurrent));
+        }
+        if (isCurrent) {
+          replayChartAnimationInSlide(slide);
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        const isCurrent = idx === realIndex;
+        dot.classList.toggle('is-active', isCurrent);
+        dot.setAttribute('aria-selected', String(isCurrent));
+      });
+
+      if (statusEl && slideTitles[realIndex]) {
+        statusEl.textContent = slideTitles[realIndex];
+      }
+    }
+
+    function setTrackPosition(index, withAnimation) {
+      if (withAnimation && !prefersReducedMotion) {
+        track.classList.add('is-animating');
+      } else {
+        track.classList.remove('is-animating');
+      }
+      track.style.transform = `translate3d(${-(index * 100)}%, 0, 0)`;
+    }
+
+    function moveToTrackIndex(nextTrackIndex) {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      trackIndex = nextTrackIndex;
+      const realIndex = getRealIndex(trackIndex);
+
+      updateIndicators(realIndex);
+      setTrackPosition(trackIndex, true);
+
+      if (prefersReducedMotion) {
+        normalizeInfiniteBounds();
+      }
+    }
+
+    function normalizeInfiniteBounds() {
+      if (trackIndex === 0) {
+        trackIndex = totalRealSlides;
+        setTrackPosition(trackIndex, false);
+        updateIndicators(getRealIndex(trackIndex));
+      } else if (trackIndex === totalRealSlides + 1) {
+        trackIndex = 1;
+        setTrackPosition(trackIndex, false);
+        updateIndicators(getRealIndex(trackIndex));
+      }
+      isTransitioning = false;
+    }
+
+    track.addEventListener('transitionend', (event) => {
+      if (event.target !== track || event.propertyName !== 'transform') return;
+      normalizeInfiniteBounds();
+    });
+
+    function nextSlide() {
+      moveToTrackIndex(trackIndex + 1);
+    }
+
+    function prevSlide() {
+      moveToTrackIndex(trackIndex - 1);
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        restartAutoplay();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        restartAutoplay();
+      });
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        if (getRealIndex(trackIndex) === idx) return;
+        moveToTrackIndex(idx + 1);
+        restartAutoplay();
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const isSliderFocused = sliderShell.contains(document.activeElement);
+      if (!isSliderFocused && !isHoveredOrFocused) return;
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        nextSlide();
+        restartAutoplay();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        prevSlide();
+        restartAutoplay();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isSwiping = false;
+    const SWIPE_THRESHOLD = 45;
+
+    sliderShell.addEventListener(
+      'touchstart',
+      (event) => {
+        if (event.touches.length !== 1) return;
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+        isSwiping = true;
+        pauseAutoplay();
+      },
+      { passive: true }
+    );
+
+    sliderShell.addEventListener(
+      'touchend',
+      (event) => {
+        if (!isSwiping || event.changedTouches.length === 0) return;
+        isSwiping = false;
+
+        const deltaX = event.changedTouches[0].clientX - touchStartX;
+        const deltaY = event.changedTouches[0].clientY - touchStartY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > SWIPE_THRESHOLD) {
+          if (deltaX < 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+
+        if (!isHoveredOrFocused) {
+          startAutoplay();
+        }
+      },
+      { passive: true }
+    );
+
+    function startAutoplay() {
+      stopAutoplay();
+      if (prefersReducedMotion || isHoveredOrFocused) {
+        return;
+      }
+      autoplayTimer = window.setInterval(nextSlide, AUTOPLAY_INTERVAL);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer !== null) {
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    function pauseAutoplay() {
+      stopAutoplay();
+    }
+
+    function restartAutoplay() {
+      if (!isHoveredOrFocused) {
+        startAutoplay();
+      }
+    }
+
+    sliderShell.addEventListener('mouseenter', () => {
+      isHoveredOrFocused = true;
+      pauseAutoplay();
+    });
+
+    sliderShell.addEventListener('mouseleave', () => {
+      isHoveredOrFocused = false;
+      startAutoplay();
+    });
+
+    sliderShell.addEventListener('focusin', () => {
+      isHoveredOrFocused = true;
+      pauseAutoplay();
+    });
+
+    sliderShell.addEventListener('focusout', (event) => {
+      if (!sliderShell.contains(event.relatedTarget)) {
+        isHoveredOrFocused = false;
+        startAutoplay();
+      }
+    });
+
+    setTrackPosition(trackIndex, false);
+    updateIndicators(0);
+    startAutoplay();
+  }
+
+  function initScrollReveal() {
+    const revealElements = document.querySelectorAll('.reveal');
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealElements.forEach((el) => el.classList.add('is-revealed'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px 0px -6% 0px',
+        threshold: 0.1,
+      }
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+  }
+
+  function initHeroProductShowcase() {
+    const heroSection = document.getElementById('hero');
+    const deviceScrollRig = document.getElementById('hero-device-scroll');
+
+    if (!heroSection || !deviceScrollRig) {
+      return;
+    }
+
+    let targetProgress = 0;
+    let currentProgress = 0;
+    let targetPointerX = 0;
+    let targetPointerY = 0;
+    let currentPointerX = 0;
+    let currentPointerY = 0;
+    let rafId = null;
+
+    function computeScrollTarget() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const heroHeight = heroSection.offsetHeight || window.innerHeight;
+      const raw = scrollY / Math.max(1, heroHeight * 0.85);
+      targetProgress = Math.max(0, Math.min(1, raw));
+      requestTick();
+    }
+
+    function animateHeroDevice() {
+      rafId = null;
+
+      currentProgress += (targetProgress - currentProgress) * 0.14;
+      currentPointerX += (targetPointerX - currentPointerX) * 0.1;
+      currentPointerY += (targetPointerY - currentPointerY) * 0.1;
+
+      const scale = 1 + currentProgress * 0.1;
+      const rotateZ = -1.2 + currentProgress * 3.5 + currentPointerX * 1.8;
+      const rotateX = currentProgress * 5.0 - currentPointerY * 4.0;
+      const rotateY = -currentProgress * 4.5 + currentPointerX * 5.0;
+      const translateY = currentProgress * -16;
+
+      deviceScrollRig.style.transform = `translate3d(0, ${translateY.toFixed(2)}px, 0) scale3d(${scale.toFixed(4)}, ${scale.toFixed(4)}, 1) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) rotateZ(${rotateZ.toFixed(2)}deg)`;
+
+      const stillMoving =
+        Math.abs(targetProgress - currentProgress) > 0.001 ||
+        Math.abs(targetPointerX - currentPointerX) > 0.001 ||
+        Math.abs(targetPointerY - currentPointerY) > 0.001;
+
+      if (stillMoving) {
+        requestTick();
+      }
+    }
+
+    function requestTick() {
+      if (rafId === null) {
+        rafId = window.requestAnimationFrame(animateHeroDevice);
+      }
+    }
+
+    window.addEventListener('scroll', computeScrollTarget, { passive: true });
+    window.addEventListener('resize', computeScrollTarget, { passive: true });
+
+    if (window.matchMedia('(pointer: fine)').matches) {
+      heroSection.addEventListener(
+        'mousemove',
+        (event) => {
+          const rect = heroSection.getBoundingClientRect();
+          const nx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+          const ny = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+          targetPointerX = Math.max(-1, Math.min(1, nx));
+          targetPointerY = Math.max(-1, Math.min(1, ny));
+          requestTick();
+        },
+        { passive: true }
+      );
+
+      heroSection.addEventListener('mouseleave', () => {
+        targetPointerX = 0;
