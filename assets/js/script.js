@@ -2010,3 +2010,253 @@
     return applyScenario;
   }
 
+  /* ==========================================================================
+     6. ACCESSIBLE FORM VALIDATION (Prevents Empty Field Submission)
+     ========================================================================== */
+  function initDoubtFormsValidation() {
+    const forms = Array.from(document.querySelectorAll('.vena-doubt-form'));
+    if (!forms.length) return;
+
+    const supportsUserInvalid =
+      typeof CSS !== 'undefined' && typeof CSS.supports === 'function' && CSS.supports('selector(:user-invalid)');
+    const dirtyState = new WeakMap();
+
+    function updateCharLimiter(control) {
+      if (!control || !control.id) return;
+      const maxAttr = control.dataset.maxChars || control.getAttribute('maxlength');
+      const maxChars = maxAttr ? parseInt(maxAttr, 10) : 0;
+      if (!maxChars || Number.isNaN(maxChars)) return;
+
+      if (control.value.length > maxChars) {
+        control.value = control.value.slice(0, maxChars);
+      }
+
+      const currentLen = control.value.length;
+      const ratio = currentLen / maxChars;
+      const isTextarea = control.tagName === 'TEXTAREA';
+
+      const counterEl = document.querySelector(`.char-counter[data-for="${control.id}"]`);
+      if (counterEl) {
+        counterEl.textContent = isTextarea
+          ? `${currentLen} / ${maxChars} caracteres`
+          : `${currentLen} / ${maxChars}`;
+        counterEl.classList.toggle('is-near-limit', ratio >= 0.8 && ratio < 1);
+        counterEl.classList.toggle('is-at-limit', ratio >= 1);
+      }
+
+      const barFillEl = document.querySelector(`.char-limit-fill[data-bar-for="${control.id}"]`);
+      if (barFillEl) {
+        const pct = Math.min(100, Math.round(ratio * 100));
+        barFillEl.style.width = `${pct}%`;
+        barFillEl.classList.toggle('is-near-limit', ratio >= 0.8 && ratio < 1);
+        barFillEl.classList.toggle('is-at-limit', ratio >= 1);
+      }
+    }
+
+    function validateFieldControl(control, forceErrorDisplay) {
+      if (!control.matches || !control.matches('input, textarea, select')) {
+        return true;
+      }
+      if (control.type === 'radio' || control.type === 'checkbox') {
+        return control.checkValidity();
+      }
+
+      const rawVal = typeof control.value === 'string' ? control.value : '';
+      const trimmedVal = rawVal.trim();
+
+      // Clear previous custom validity before re-evaluating
+      control.setCustomValidity('');
+
+      if (control.required && trimmedVal.length === 0) {
+        control.setCustomValidity('Este campo obrigatório não pode ficar vazio.');
+      }
+
+      const isValid = control.checkValidity();
+      const state = dirtyState.get(control) || { hasInteracted: false, hasBlurred: false };
+      const shouldShowError =
+        !isValid && (forceErrorDisplay || (state.hasInteracted && state.hasBlurred) || (supportsUserInvalid && control.matches(':user-invalid')));
+
+      control.classList.toggle('user-invalid-fallback', shouldShowError);
+      control.classList.toggle('user-valid-fallback', isValid && state.hasInteracted);
+
+      if (shouldShowError) {
+        control.setAttribute('aria-invalid', 'true');
+      } else {
+        control.removeAttribute('aria-invalid');
+      }
+
+      return isValid;
+    }
+
+    // Document-level capture listeners for blur, focus, input, and reset
+    document.addEventListener(
+      'blur',
+      (event) => {
+        const control = event.target;
+        if (!control || !control.matches || !control.matches('.vena-doubt-form input, .vena-doubt-form textarea, .vena-doubt-form select')) {
+          return;
+        }
+        const state = dirtyState.get(control) || { hasInteracted: false, hasBlurred: false };
+        state.hasBlurred = true;
+        // Mark as interacted on blur if required and empty so leaving a required field empty alerts the user
+        if (control.required && control.value.trim().length === 0) {
+          state.hasInteracted = true;
+        }
+        dirtyState.set(control, state);
+        validateFieldControl(control, true);
+      },
+      true
+    );
+
+    document.addEventListener(
+      'focus',
+      (event) => {
+        const control = event.target;
+        if (!control || !control.matches || !control.matches('.vena-doubt-form input, .vena-doubt-form textarea, .vena-doubt-form select')) {
+          return;
+        }
+        if (supportsUserInvalid && control.matches(':user-invalid')) {
+          control.setAttribute('aria-invalid', 'true');
+        }
+      },
+      true
+    );
+
+    document.addEventListener(
+      'input',
+      (event) => {
+        const control = event.target;
+        if (!control || !control.matches || !control.matches('.vena-doubt-form input, .vena-doubt-form textarea, .vena-doubt-form select')) {
+          return;
+        }
+        const state = dirtyState.get(control) || { hasInteracted: false, hasBlurred: false };
+        state.hasInteracted = true;
+        dirtyState.set(control, state);
+
+        updateCharLimiter(control);
+
+        // Clear custom validity while typing; if already showing an error, re-evaluate immediately
+        control.setCustomValidity('');
+        if (control.getAttribute('aria-invalid') === 'true' || control.classList.contains('user-invalid-fallback')) {
+          validateFieldControl(control, false);
+        }
+      },
+      true
+    );
+
+    forms.forEach((form) => {
+      // Enable custom accessible validation UI on submit while keeping native required attributes
+      form.noValidate = true;
+
+      const alertBanner = form.querySelector('.form-alert-banner');
+      const successPanel = form.querySelector('.form-success-panel');
+      const successText = form.querySelector('.form-success-text');
+      const submitBtn = form.querySelector('.btn-submit-form');
+      const resetBtn = form.querySelector('.btn-reset-form');
+      const controls = Array.from(form.querySelectorAll('input.form-control, textarea.form-control, select.form-control'));
+
+      // Initialize character limiters on load
+      controls.forEach((control) => updateCharLimiter(control));
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        let firstInvalidControl = null;
+
+        controls.forEach((control) => {
+          const state = dirtyState.get(control) || { hasInteracted: true, hasBlurred: true };
+          state.hasInteracted = true;
+          state.hasBlurred = true;
+          dirtyState.set(control, state);
+
+          const isValid = validateFieldControl(control, true);
+          if (!isValid && !firstInvalidControl) {
+            firstInvalidControl = control;
+          }
+        });
+
+        if (firstInvalidControl) {
+          if (alertBanner) {
+            alertBanner.textContent =
+              'Envio bloqueado: preencha todos os campos obrigatórios destacados abaixo antes de enviar sua dúvida.';
+            alertBanner.hidden = false;
+          }
+          firstInvalidControl.focus();
+          return;
+        }
+
+        // All required fields are non-empty and valid
+        if (alertBanner) {
+          alertBanner.hidden = true;
+          alertBanner.textContent = '';
+        }
+
+        // Trim values cleanly and update counters
+        controls.forEach((control) => {
+          control.value = control.value.trim();
+          updateCharLimiter(control);
+        });
+
+        // Disable submit button after valid submission to prevent double-posts
+        if (submitBtn) {
+          submitBtn.disabled = true;
+        }
+
+        const nameInput = form.querySelector('[name="full_name"]');
+        const emailInput = form.querySelector('[name="email"]');
+        const userName = nameInput ? nameInput.value : '';
+        const userEmail = emailInput ? emailInput.value : '';
+
+        if (successText) {
+          successText.textContent = `Recebemos a mensagem de ${userName}. Nossa equipe responderá em breve pelo e-mail ${userEmail}.`;
+        }
+        if (successPanel) {
+          successPanel.hidden = false;
+        }
+      });
+
+      form.addEventListener('reset', () => {
+        window.requestAnimationFrame(() => {
+          controls.forEach((control) => {
+            dirtyState.delete(control);
+            control.setCustomValidity('');
+            control.classList.remove('user-invalid-fallback', 'user-valid-fallback');
+            control.removeAttribute('aria-invalid');
+            updateCharLimiter(control);
+          });
+        });
+        if (alertBanner) {
+          alertBanner.hidden = true;
+          alertBanner.textContent = '';
+        }
+        if (successPanel) {
+          successPanel.hidden = true;
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+        }
+      });
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          form.reset();
+          if (controls[0]) {
+            controls[0].focus();
+          }
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    mountAllSvgCharts();
+    initCustomCursor();
+    initHeroProductShowcase();
+    initVenaSlider();
+    initScrollReveal();
+    initSectionSnapSync();
+    const applyScenario = initResultsScenarioToggle();
+    initInteractiveCharts(applyScenario);
+    initDoubtFormsValidation();
+  });
+})();
