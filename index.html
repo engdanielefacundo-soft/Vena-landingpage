@@ -594,3 +594,265 @@
             <div class="benefit-body">
               <div class="benefit-copy">
                 <h3 class="benefit-title">Tecnologia pronta para a operação urbana</h3>
+                <p class="benefit-text">
+                  Sensores ultrassônicos e sinalização luminosa em LED integrados em um módulo compacto com proteção estanque.
+                </p>
+              </div>
+              <div class="benefit-visual" aria-hidden="true">
+                <svg viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="4" width="172" height="102" rx="10" fill="#FFFFFF" stroke="#DBEAFE"/>
+                  <rect x="42" y="26" width="96" height="44" rx="8" fill="#0059BC"/>
+                  <circle cx="60" cy="48" r="4.5" fill="#10B981"/>
+                  <circle cx="74" cy="48" r="4.5" fill="#F59E0B"/>
+                  <circle cx="88" cy="48" r="4.5" fill="#EF4444"/>
+                  <rect x="58" y="70" width="22" height="14" rx="3" fill="#3B82F6"/>
+                  <rect x="100" y="70" width="22" height="14" rx="3" fill="#3B82F6"/>
+                </svg>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultados" class="section-block section-offwhite" aria-labelledby="resultados-title">
+      <div class="container">
+        <div class="results-top-bar reveal">
+          <div class="section-header results-header-compact">
+            <span class="section-kicker"><span class="kicker-num">06</span>Resultados do Protótipo</span>
+            <h2 id="resultados-title" class="section-title">Dois pontos na Bela Vista. Resposta inteligente ao clima.</h2>
+            <p class="section-description">
+              Compare o comportamento dos dois protótipos instalados na Bela Vista — na Rua Treze de Maio e na Av. 9 de Julho — nas duas fases climáticas.
+            </p>
+          </div>
+
+          <div class="scenario-switcher" role="group" aria-label="Alternar fase climática">
+            <button
+              type="button"
+              class="scenario-btn is-active"
+              data-scenario="dry"
+              aria-pressed="true"
+            >
+              Fase 1 · Sem Chuva
+            </button>
+            <button
+              type="button"
+              class="scenario-btn"
+              data-scenario="rain"
+              aria-pressed="false"
+            >
+              Fase 2 · Com Chuva
+            </button>
+          </div>
+        </div>
+
+        <div class="results-dashboard-grid">
+          <article class="results-panel reveal" aria-label="Gráfico comparativo das duas fases climáticas na Bela Vista">
+            <div class="results-panel-header">
+              <div>
+                <span class="results-panel-tag">Bela Vista · Comparativo de Prioridade nas Duas Fases</span>
+                <h3 class="results-panel-title">Rua Treze de Maio vs. Av. 9 de Julho</h3>
+              </div>
+              <span class="results-active-phase-pill" id="results-phase-badge">Fase Ativa: Sem Chuva</span>
+            </div>
+
+            <figure
+              class="results-chart-frame interactive-chart-shell"
+              id="chart-shell-results"
+              data-chart-id="results-comparison"
+              aria-label="Gráfico interativo comparando Rua Treze de Maio e Av. 9 de Julho na Bela Vista nas fases sem chuva e com chuva"
+            >
+              <div class="chart-svg-mount" id="chart-mount-results"></div>
+              <div class="chart-tooltip" id="tooltip-results" role="status" aria-live="polite" hidden></div>
+            </figure>
+          </article>
+
+          <div class="prototype-nodes-col">
+            <article class="arduino-node-card arduino-node-priority reveal" id="card-bueiro-02" aria-label="Unidade 02: Av. 9 de Julho na Bela Vista">
+              <div class="node-card-top">
+                <div>
+                  <div class="node-id-row">
+                    <span class="node-rank-badge" id="rank-bueiro-02">
+                      <span class="node-rank-circle">1º</span>
+                      <span>na fila de limpeza</span>
+                    </span>
+                    <span class="node-coords">Unidade 02 · Bela Vista</span>
+                  </div>
+                  <h3 class="node-location-title">Av. 9 de Julho</h3>
+                </div>
+                <span class="fleet-pill fleet-pill-warning" id="pill-bueiro-02">Atenção · Sem Chuva</span>
+              </div>
+
+              <div class="node-bars-grid">
+                <div class="node-metric-item">
+                  <div class="node-metric-label">
+                    <span>Resíduos na Grelha</span>
+                    <strong>Retenção moderada</strong>
+                  </div>
+                  <div class="fleet-bar-track" aria-hidden="true">
+                    <div class="fleet-bar-fill fill-warning" style="width: 58%"></div>
+                  </div>
+                </div>
+
+                <div class="node-metric-item">
+                  <div class="node-metric-label">
+                    <span>Nível da Água</span>
+                    <strong>Galeria livre</strong>
+                  </div>
+                  <div class="fleet-bar-track" aria-hidden="true">
+                    <div class="fleet-bar-fill fill-normal" style="width: 16%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="node-footer-meta">
+                <p class="node-action-summary" id="action-bueiro-02">
+                  <strong>Fase Sem Chuva:</strong> Sinalização em LED amarelo no bueiro e limpeza preventiva programada na rotina.
+                </p>
+              </div>
+            </article>
+
+            <article class="arduino-node-card reveal" id="card-bueiro-01" aria-label="Unidade 01: Rua Treze de Maio na Bela Vista">
+              <div class="node-card-top">
+                <div>
+                  <div class="node-id-row">
+                    <span class="node-rank-badge node-rank-secondary">
+                      <span class="node-rank-circle">2º</span>
+                      <span>na fila · monitoramento</span>
+                    </span>
+                    <span class="node-coords">Unidade 01 · Bela Vista</span>
+                  </div>
+                  <h3 class="node-location-title">Rua Treze de Maio</h3>
+                </div>
+                <span class="fleet-pill fleet-pill-normal" id="pill-bueiro-01">Livre · Fluxo Normal</span>
+              </div>
+
+              <div class="node-bars-grid">
+                <div class="node-metric-item">
+                  <div class="node-metric-label">
+                    <span>Resíduos na Grelha</span>
+                    <strong>Sem obstrução</strong>
+                  </div>
+                  <div class="fleet-bar-track" aria-hidden="true">
+                    <div class="fleet-bar-fill fill-normal" style="width: 16%"></div>
+                  </div>
+                </div>
+
+                <div class="node-metric-item">
+                  <div class="node-metric-label">
+                    <span>Nível da Água</span>
+                    <strong>Galeria livre</strong>
+                  </div>
+                  <div class="fleet-bar-track" aria-hidden="true">
+                    <div class="fleet-bar-fill fill-normal" style="width: 16%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="node-footer-meta">
+                <p class="node-action-summary" id="action-bueiro-01">
+                  <strong>Estável nas duas fases:</strong> Sinalização em LED verde e escoamento livre mesmo com previsão de chuva.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="cta-final-section" aria-labelledby="cta-final-title">
+      <video
+        class="cta-video-bg"
+        autoplay
+        loop
+        muted
+        playsinline
+        aria-hidden="true"
+        width="1920"
+        height="1080"
+      >
+        <source src="assets/video/hero-bg-video.mp4" type="video/mp4">
+      </video>
+      <div class="cta-video-overlay" aria-hidden="true"></div>
+
+      <div class="container cta-final-container">
+        <div class="cta-final-content reveal">
+          <div class="cta-final-copy">
+            <span class="section-kicker"><span class="kicker-num">07</span>Implantação Municipal</span>
+            <h2 id="cta-final-title" class="cta-final-title">Pronto para proteger sua cidade?</h2>
+            <p class="cta-final-subtitle">
+              Leve o Vena para a drenagem do seu município e antecipe a limpeza antes da chuva.
+            </p>
+          </div>
+          <div class="cta-final-actions">
+            <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=astrongroupfiap@gmail.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-cta-final">
+              <span>Entrar em Contato</span>
+              <svg aria-hidden="true" class="icon-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-identity">
+          <div class="footer-logos">
+            <a href="#" class="brand-link" aria-label="Vena — Voltar ao topo">
+              <img src="assets/img/logo.png" alt="Vena Logo" class="brand-logo" loading="lazy" width="108" height="27">
+            </a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <img src="assets/img/logo-astron.png" alt="Astron Logo" class="astron-logo" loading="lazy" width="136" height="32">
+          </div>
+
+          <p class="footer-signature">
+            <strong>Vena by Astron</strong> — Monitoramento inteligente de microdrenagem urbana.
+          </p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Mapa do site">
+          <div class="footer-col">
+            <h2 class="footer-heading">Navegação</h2>
+            <ul role="list" class="footer-links">
+              <li><a href="#problema">O Problema</a></li>
+              <li><a href="#tecnologia">Tecnologia</a></li>
+              <li><a href="#objetivos">Objetivos</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h2 class="footer-heading">Impacto</h2>
+            <ul role="list" class="footer-links">
+              <li><a href="#publico">Para quem</a></li>
+              <li><a href="#beneficios">Benefícios</a></li>
+              <li><a href="#resultados">Resultados</a></li>
+              <li><a href="duvidas.html">Tirar Dúvidas</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h2 class="footer-heading">Astron</h2>
+            <ul role="list" class="footer-links">
+              <li>
+                <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=astrongroupfiap@gmail.com" target="_blank" rel="noopener noreferrer">astrongroupfiap@gmail.com</a>
+              </li>
+              <li><span>São Paulo — Brasil</span></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 Astron. Todos os direitos reservados.</p>
+        <p class="footer-byline">Vena by Astron</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
