@@ -1873,3 +1873,140 @@
 
       heroSection.addEventListener('mouseleave', () => {
         targetPointerX = 0;
+        targetPointerY = 0;
+        requestTick();
+      });
+    }
+
+    computeScrollTarget();
+  }
+
+  function initSectionSnapSync() {
+    const navLinks = Array.from(
+      document.querySelectorAll('.primary-nav .nav-link, .header-actions .btn-contact[href^="#"]')
+    );
+    const sections = Array.from(document.querySelectorAll('main > section[id]'));
+
+    if (!navLinks.length || !sections.length) {
+      return;
+    }
+
+    function setActiveSection(sectionId) {
+      navLinks.forEach((link) => {
+        const isMatch = link.getAttribute('href') === `#${sectionId}`;
+        if (isMatch) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    if ('onscrollsnapchange' in window || 'onscrollsnapchange' in document) {
+      document.addEventListener('scrollsnapchange', (event) => {
+        const snappedTarget = event.snapTargetBlock;
+        if (snappedTarget && snappedTarget.id) {
+          setActiveSection(snappedTarget.id);
+        }
+      });
+    } else if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.target.id) {
+              setActiveSection(entry.target.id);
+            }
+          });
+        },
+        { root: null, threshold: 0.55 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    }
+  }
+
+  function initResultsScenarioToggle() {
+    const scenarioBtns = Array.from(document.querySelectorAll('.scenario-btn'));
+    const bvDry = document.getElementById('svg-bv-dry');
+    const bvRain = document.getElementById('svg-bv-rain');
+    const j9Dry = document.getElementById('svg-9j-dry');
+    const j9Rain = document.getElementById('svg-9j-rain');
+    const j9DryBar = document.getElementById('svg-9j-dry-bar');
+    const j9RainBar = document.getElementById('svg-9j-rain-bar');
+    const connector = document.getElementById('svg-escalation-connector');
+    const svgPhaseSummary = document.getElementById('svg-phase-summary');
+    const phaseBadge = document.getElementById('results-phase-badge');
+    const pillBueiro2 = document.getElementById('pill-bueiro-02');
+    const actionBueiro2 = document.getElementById('action-bueiro-02');
+
+    if (!scenarioBtns.length) {
+      return null;
+    }
+
+    function applyScenario(mode) {
+      const isRain = mode === 'rain';
+
+      scenarioBtns.forEach((btn) => {
+        const active = btn.dataset.scenario === mode;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-pressed', String(active));
+      });
+
+      if (bvDry) bvDry.setAttribute('opacity', isRain ? '0.45' : '1');
+      if (bvRain) bvRain.setAttribute('opacity', isRain ? '1' : '0.45');
+      if (j9Dry) j9Dry.setAttribute('opacity', isRain ? '0.42' : '1');
+      if (j9Rain) j9Rain.setAttribute('opacity', isRain ? '1' : '0.42');
+
+      if (j9DryBar) {
+        j9DryBar.setAttribute('stroke-width', isRain ? '0' : '2');
+      }
+      if (j9RainBar) {
+        j9RainBar.setAttribute('stroke', isRain ? '#0059BC' : 'none');
+        j9RainBar.setAttribute('stroke-width', isRain ? '2.5' : '0');
+      }
+      if (connector) {
+        connector.setAttribute('opacity', isRain ? '1' : '0.5');
+      }
+
+      if (isRain) {
+        if (svgPhaseSummary) {
+          svgPhaseSummary.textContent = 'Com chuva: limpeza imediata e via interditada';
+        }
+        if (phaseBadge) {
+          phaseBadge.textContent = 'Fase Ativa: Com Chuva';
+        }
+        if (pillBueiro2) {
+          pillBueiro2.textContent = 'Crítico · Com Chuva';
+          pillBueiro2.className = 'fleet-pill fleet-pill-critical';
+        }
+        if (actionBueiro2) {
+          actionBueiro2.innerHTML =
+            '<span><strong>Fase Com Chuva:</strong> Prioridade máxima com despacho imediato de limpeza e alerta de via interditada.</span>';
+        }
+      } else {
+        if (svgPhaseSummary) {
+          svgPhaseSummary.textContent = 'Sem chuva: limpeza programada';
+        }
+        if (phaseBadge) {
+          phaseBadge.textContent = 'Fase Ativa: Sem Chuva';
+        }
+        if (pillBueiro2) {
+          pillBueiro2.textContent = 'Atenção · Sem Chuva';
+          pillBueiro2.className = 'fleet-pill fleet-pill-warning';
+        }
+        if (actionBueiro2) {
+          actionBueiro2.innerHTML =
+            '<span><strong>Fase Sem Chuva:</strong> Sinalização em LED amarelo no bueiro e limpeza preventiva programada na rotina.</span>';
+        }
+      }
+    }
+
+    scenarioBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        applyScenario(btn.dataset.scenario);
+      });
+    });
+
+    return applyScenario;
+  }
+
