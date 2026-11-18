@@ -1,4 +1,4 @@
-# Vena by Astron — Vigilância eletrônica de níveis de alagamento ?
+# Vena by Astron — Vigilância eletrônica de níveis de alagamento
 
 Repositório oficial da plataforma web do **Vena**, sistema inteligente de monitoramento de galerias pluviais e prevenção de alagamentos urbanos desenvolvido pela **Astron**.
 
